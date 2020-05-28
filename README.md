@@ -18,10 +18,11 @@ At a glance:
 
 ```js
 // dangerfile.js
-import eslint from 'danger-plugin-eslint'
+import eslint from "danger-plugin-eslint";
 
-eslint()
+eslint();
 ```
+
 ## Changelog
 
 See the GitHub [release history](https://github.com/danpalmer/danger-plugin-eslint/releases).

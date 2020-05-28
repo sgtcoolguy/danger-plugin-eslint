@@ -1,6 +1,10 @@
 import eslint from "./index"
 
 declare const global: any
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable camelcase */
+/* eslint-disable id-blacklist */
 
 const mockFileContents = (contents: string) => {
   const asyncContents: Promise<string> = new Promise((resolve, reject) => resolve(contents))

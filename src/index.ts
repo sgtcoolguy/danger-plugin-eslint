@@ -1,12 +1,17 @@
+/* eslint-disable */
 // Provides dev-time type structures for  `danger` - doesn't affect runtime.
-import { DangerDSLType } from "../node_modules/danger/distribution/dsl/DangerDSL"
-declare var danger: DangerDSLType
-export declare function message(message: string): void
-export declare function warn(message: string): void
-export declare function fail(message: string): void
-export declare function markdown(message: string): void
+import { DangerDSLType } from "../node_modules/danger/distribution/dsl/DangerDSL";
+declare let danger: DangerDSLType;
+export declare function message(message: string, file?: string, line?: number): void;
+export declare function warn(message: string, file?: string, line?: number): void;
+export declare function fail(message: string, file?: string, line?: number): void;
+export declare function markdown(message: string, file?: string, line?: number): void;
+function ignore(message: string, file?: string, line?: number): void {
+  return;
+}
+/* eslint-enable */
 
-import { CLIEngine } from "eslint"
+import { CLIEngine, Linter } from "eslint"
 
 interface Options {
   baseConfig?: any
@@ -27,10 +32,10 @@ export default async function eslint(config: any, extensions: string[] = [".js"]
   }
   const cli = new CLIEngine(options)
   // let eslint filter down to non-ignored, matching the extensions expected
-  const filesToLint = allFiles.filter(f => {
-    return !cli.isPathIgnored(f) && options.extensions.some(ext => f.endsWith(ext))
+  const filesToLint = allFiles.filter((f) => {
+    return !cli.isPathIgnored(f) && options.extensions.some((ext) => f.endsWith(ext))
   })
-  return Promise.all(filesToLint.map(f => lintFile(cli, config, f)))
+  return Promise.all(filesToLint.map((f) => lintFile(cli, config, f)))
 }
 
 async function lintFile(linter, config, path) {
@@ -38,7 +43,7 @@ async function lintFile(linter, config, path) {
   const report = linter.executeOnText(contents, path)
 
   if (report.results.length !== 0) {
-    report.results[0].messages.map(msg => {
+    report.results[0].messages.map((msg) => {
       if (msg.fatal) {
         fail(`Fatal error linting ${path} with eslint.`)
         return

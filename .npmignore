@@ -2,6 +2,8 @@
 .editorconfig
 .esdoc.json
 .travis.yml
+.nvmrc
+.prettierrc.json
 yarn.lock
 node_modules/
 src/
